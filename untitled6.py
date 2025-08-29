@@ -113,32 +113,6 @@ def preprocess(text):
 combined_df['cleaned'] = combined_df['text'].astype(str).apply(preprocess)
 
 
-
-
-# -----------------------------
-# 5. BERT embeddings
-# -----------------------------
-
-from sentence_transformers import SentenceTransformer
-import pandas as pd # Added import for pandas
-
-# Load a lightweight, fast S-BERT model
-model = SentenceTransformer('all-MiniLM-L6-v2')
-
-# Convert to sentence embeddings
-# Ensure combined_df and 'cleaned' column exist by running previous cells
-if 'combined_df' not in locals() or 'cleaned' not in combined_df.columns:
-    print("Error: 'combined_df' or 'cleaned' column not found. Please run the preceding cells.")
-else:
-    X = model.encode(combined_df['cleaned'], show_progress_bar=True)
-
-    # Labels
-    y = combined_df['label'].astype(int).values
-
-    print("✅ BERT Embedding Shape:", len(X), "x", len(X[0]))
-
-
-
 #======================================
 # Train test split
 #======================================
